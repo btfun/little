@@ -167,31 +167,28 @@ gulp.task("online_replaceRequireConfPath",function (cb) {
 
 
 
-
+ 
 // 静态服务器 + 监听 scss/html 文件
-gulp.task('server', ['nodemon'], function() {
-
-  browserSync.init({
-    proxy: 'http://127.0.0.1:3000',
-    files: ['./views/**/*.*', './public/**/*.*'],
-    browser: 'chrome',
-    notify: false,
-    port: 8080
-  });
-
-});
-
-gulp.task('nodemon', function (cb) {
-
-  var called = false;
-  return nodemon({
-      script: './bin/www'
-    }).on('start', function () {
-      if (!called) {cb();  called = true; }
-    });
-});
+gulp.task('nodemon',function(){
+    nodemon({
+        ignore:['gulpfile.js','node_modules/'], //忽略不需要监视重启的文件
+        script: './bin/www',
+        ext:'js html'
+    }).on('start',function(){
+        browserSync.init({
+            files: ['./views/**/*.*', './public/**/*.*'],
+            proxy:'http://localhost:3000', //设置代理运行本地的3000端口
+            port:8080, //设置browser-sync的运行端口号
+            browser: 'chrome',
+            notify: false
+        },function(){
+            console.log('浏览器已刷新')
+        })
+    })
+})
 
 
-gulp.task('default', ['server'], function() {
+
+gulp.task('default', ['nodemon'], function() {
   // 将你的默认的任务代码放在这
 });
