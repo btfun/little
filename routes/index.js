@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var sign = require('./sign.js');
+var sign = require('./util/sign.js');
 var request = require('request');
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'index' });
