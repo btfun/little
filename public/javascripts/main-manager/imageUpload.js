@@ -8,7 +8,7 @@ $(function(){
          console.log(this.files.length)
 
          var $viewImg=$('#viewImg');
-         var canvas=$('<canvas>')[0];
+         var canvas = document.createElement('canvas');
          var cxt=canvas.getContext('2d');
 
             $(this.files).each(function(){
@@ -157,8 +157,83 @@ $(function(){
   });
 
 
+////////////////////////////////////////////////////////////
+
+  function compress(file, quality, callback) {
+      if (!window.FileReader || !window.Blob) {
+          return errorHandler('您的浏览器不支持图片压缩')();
+      }
+
+      var reader = new FileReader();
+      var mimeType = file.type || 'image/jpeg';
+
+      reader.onload = createImage;
+      reader.onerror = errorHandler('图片读取失败！');
+      reader.readAsDataURL(file);
+
+      function createImage() {
+          var dataURL = this.result;
+          var image = new Image();
+          image.onload = compressImage;
+          image.onerror = errorHandler('图片加载失败');
+          image.src = dataURL;
+      }
+
+      function compressImage() {
+          var canvas = document.createElement('canvas');
+          var ctx;
+          var dataURI;
+          var result;
+
+          canvas.width = this.naturalWidth;
+          canvas.height = this.naturalHeight;
+          ctx = canvas.getContext('2d');
+          ctx.drawImage(this, 0, 0);
+          dataURI = canvas.toDataURL(mimeType, quality);
+          result = dataURIToBlob(dataURI);
+
+          callback(null, result);
+      }
+
+      function dataURIToBlob(dataURI) {
+          var type = dataURI.match(/data:([^;]+)/)[1];
+          var base64 = dataURI.replace(/^[^,]+,/, '');
+          var byteString = atob(base64);
+
+          var ia = new Uint8Array(byteString.length);
+          for (var i = 0; i < byteString.length; i++) {
+              ia[i] = byteString.charCodeAt(i);
+          }
+
+          return new Blob([ia], {type: type});
+      }
+
+      function errorHandler(message) {
+          return function () {
+              var error = new Error('Compression Error:', message);
+              callback(error, null);
+          };
+      }
+  }
 
 
+  var fileInput = document.querySelector('#file-field');
+     var formData = new FormData(document.querySelector('form'));
+
+     fileInput.addEventListener('change', function (e) {
+         var file = e.target.files[0];
+
+         compress(file, 0.5, function (err, data) {
+             if (err) {
+                 console.log(err);
+                 return;
+             }
+              console.log('data',data);
+             formData.append('filename', data);
+
+             // 接下来就可以用 ajax 提交 fromdData
+         });
+     },false);
 
 
 
