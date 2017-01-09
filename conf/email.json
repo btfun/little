@@ -1,0 +1,13 @@
+{
+  "host" : "smtp.exmail.qq.com",
+  "port" : 25,
+  "user" : "devtest@mljia.cn",
+  "pass" : "beauty123",
+  "from" : "devtest@mljia.cn",
+  "receivers"   : [
+    "battle@mljia.cn",
+    "",
+    "",
+    ""
+  ]
+}
