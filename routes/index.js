@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var sign = require('./util/sign.js');
 var request = require('request');
-
+var formidable = require('formidable');
+var util = require('util');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'index' });
@@ -38,6 +39,28 @@ router.get('/index/:name', function(req, res, next) {
 
 });
 
+router.post('/upload', function(req, res, next) {
+
+  //创建表单上传
+   var form = new formidable.IncomingForm();
+   //设置编辑
+   form.encoding = 'utf-8';
+   //设置文件存储路径
+   form.uploadDir = "uploads/images/";
+   //保留后缀
+   form.keepExtensions = true;
+   //设置单文件大小限制
+   form.maxFieldsSize = 2 * 1024 * 1024;
+
+   form.parse(req, function(err, fields, files) {
+        // res.render('index', { title: 'index' });
+
+        res.writeHead(200, {'content-type': 'text/plain'}); 
+        res.end(util.inspect({fields: fields, files: files}));
+      });
+
+
+});
 
 router.get('/jsTicket', function(req, res, next) {
   getJsTicket(function(res){

@@ -50,16 +50,17 @@ $(function(){
 
 
   //批量上传图片
-  // 				var xhrList=[];
+  				var xhrList=[];
   // $('#fileupload').fileupload({
   //         url:'/upload/',
   //         type: 'post',
   //         formData:{},
   //         sequentialUploads:true,//排队发送请求
 	// 			  dataType: 'json',
-	// 			  acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
+	// 			  // acceptFileTypes : /(\.|\/)(gif|jpe?g|png)$/i,
 	// 			  maxFileSize : 3145728,// 3M
   //         add: function (e, data) {
+  //           console.log('12312313=====')
   //                var uploadFile = data.files[0];
 	// 		           var  reader = new FileReader();
   //                reader.readAsDataURL(uploadFile);
@@ -95,65 +96,72 @@ $(function(){
 
 
 
-
+//OK
   document.querySelector('#fileupload').addEventListener('change', function () {
-      lrz(this.files[0]).then(function (rst) {
-              // 处理成功会执行
-              console.log(rst);
-              // 把处理的好的图片给用户看看呗
+    console.log(this.files)
+    var that=this.files;
+          lrz(that[0],{
+            // width : 200,
+            quality : 0.6
+          }).then(function (rst) {
+                  // 处理成功会执行
+                  console.log('数据==',rst);
+                  // 把处理的好的图片给用户看看呗
 
-           var img = new Image();
-           img.src = rst.base64;
+                     var imgv = new Image();
+                     imgv.src = rst.base64;
 
-           img.onload = function () {
-              //  document.body.appendChild(img);
-               $('#viewImg2').append(img)
-           };
+                     imgv.onload = function () {
+                         $('#viewImg2').append(imgv)
+                     };
 
-           return rst;
-          })
-          .then(function (rst) {
-            // 这里该上传给后端啦
+                 return rst;
+              }).then(function (rst) {
+                // 这里该上传给后端啦
 
-            /* ==================================================== */
-            // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
-            // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'http://localhost:5000/');
+                /* ==================================================== */
+                // 原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
+                // 其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '/upload');
 
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    // 上传成功
-                } else {
-                    // 处理其他情况
-                }
-            };
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        // 上传成功
+                        console.log('==success=',xhr.responseText)
+                    } else {
+                        // 处理其他情况
+                        console.log('==error=',xhr)
+                    }
+                };
 
-            xhr.onerror = function () {
-                // 处理错误
-            };
+                xhr.onerror = function () {
+                    // 处理错误
+                };
 
-            xhr.upload.onprogress = function (e) {
-                // 上传进度
-                var percentComplete = ((e.loaded / e.total) || 0) * 100;
-            };
+                xhr.upload.onprogress = function (e) {
+                    // 上传进度
+                    var percentComplete = ((e.loaded / e.total) || 0) * 100;
+                    // console.log('==percentComplete=',percentComplete)
+                };
 
-            // 添加参数
-            rst.formData.append('fileLen', rst.fileLen);
-            rst.formData.append('xxx', '我是其他参数');
+                // 添加参数
+                rst.formData.append('fileLen', rst.fileLen);
 
-            // 触发上传
-            xhr.send(rst.formData);
-            /* ==================================================== */
+                // 触发上传
+                xhr.send(rst.formData);
+                /* ==================================================== */
 
-            return rst;
-        })
-          .catch(function (err) {
-              // 处理失败会执行
-          })
-          .always(function () {
-              // 不管是成功失败，都会执行
-          });
+                return rst;
+              }).catch(function (err) {
+                  // 处理失败会执行
+              }).always(function () {
+                  // 不管是成功失败，都会执行
+              });
+
+
+
+
   });
 
 
@@ -231,7 +239,35 @@ $(function(){
               console.log('data',data);
              formData.append('filename', data);
 
-             // 接下来就可以用 ajax 提交 fromdData
+            //  接下来就可以用 ajax 提交 fromdData
+            //  原生ajax上传代码，所以看起来特别多 ╮(╯_╰)╭，但绝对能用
+            //  其他框架，例如jQuery处理formData略有不同，请自行google，baidu。
+
+             var xhr = new XMLHttpRequest();
+             xhr.open('POST', '/upload');
+
+             xhr.onload = function () {
+                 if (xhr.status === 200) {
+                     // 上传成功
+                     console.log('==success=',xhr.responseText)
+                 } else {
+                     // 处理其他情况
+                     console.log('==error=',xhr.responseText)
+                 }
+             };
+
+             xhr.onerror = function () {
+                 // 处理错误
+             };
+
+             xhr.upload.onprogress = function (e) {
+                 // 上传进度
+                 var percentComplete = ((e.loaded / e.total) || 0) * 100;
+             };
+
+            //  触发上传
+             xhr.send(formData);
+
          });
      },false);
 
