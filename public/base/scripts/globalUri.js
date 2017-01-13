@@ -8,7 +8,7 @@
 /**
  * 仅内部使用（用户登陆后）
  */
- if(typeof GLOBAL !== 'object'){alert('上下文异常');return;}
+ if(typeof GLOBAL !== 'object'){alert('上下文异常!');return;}
 
  var confRoot=GLOBAL.confRoot|| 'http://saas.mljia.cn/',  //saas接口上下文
      wxRoot=GLOBAL.wxRoot|| 'http://wx.mljia.cn/',        // 微信接口

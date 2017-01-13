@@ -4,40 +4,71 @@ var sign = require('./util/sign.js');
 var request = require('request');
 var formidable = require('formidable');
 var util = require('util');
+var dateV=new Date();
+
+var timeStamp= '?v='+dateV.getFullYear()+(dateV.getMonth()+1)+dateV.getDate()+dateV.getHours()+dateV.getMinutes();
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'index' });
 });
 
-/* index全局通用的 页面路由*/
-router.get('/index/:name', function(req, res, next) {
-  var name=req.params.name;
+router.get('/demo', function(req, res, next) {
+  res.render('demo', { version: timeStamp });
+});
 
+/* index全局通用的 页面路由*/
+//示例： index?route=ldx&view=index
+router.get('/index', function(req, res, next) {
+
+  var destination=req.query.route.replace('-','/').replace('-','/'),
+      view=req.query.view,
+      routeModel='module/'+destination+'/'+view;
+
+    var name=req.params.name;
     var url=req.protocol+'://'+req.hostname+req.originalUrl;
 
-    res.render(name, {
-       title: name
+    var timer=new Date();
+    res.render(routeModel, {
+       version: timeStamp,
+       sysTime :  (timer.format("yyyy-MM-dd hh:mm:ss")),
+       sysTime1 : (timer.format("yyyy/MM/dd hh:mm:ss"))
      });
 
-    // getJsTicket(function(resData){
-    //       var jsTicket=resData.jsTicket;
-    //
-    //       var signatureObj=sign(jsTicket,url);
-    //       res.render(name, {
-    //          title: name,
-    //          noncestr: signatureObj.nonceStr,
-    //          timestamp: signatureObj.timestamp,
-    //          signature: signatureObj.signature
-    //        });
-    //
-    // },function(error){
-    //       res.render(name, {
-    //          title: name ,
-    //          error: error
-    //        });
-    // })
-
 });
+
+
+Function.prototype.method=function(name,fn){
+    if(!this.prototype[name]){
+        this.prototype[name]=fn;
+        return this;
+    }
+};
+
+
+if(!Date.prototype.format){
+    Date.prototype.format =function(format){
+        var o = {
+            "M+" : this.getMonth()+1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth()+3)/3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        };
+        if(/(y+)/.test(format)) format=format.replace(RegExp.$1,
+            (this.getFullYear()+"").substr(4- RegExp.$1.length));
+        for(var k in o)if(new RegExp("("+ k +")").test(format))
+            format = format.replace(RegExp.$1,
+                RegExp.$1.length==1? o[k] :
+                    ("00"+ o[k]).substr((""+ o[k]).length));
+        return format;
+    };
+}
+
+
+
 
 router.post('/upload', function(req, res, next) {
 
@@ -55,7 +86,7 @@ router.post('/upload', function(req, res, next) {
    form.parse(req, function(err, fields, files) {
         // res.render('index', { title: 'index' });
 
-        res.writeHead(200, {'content-type': 'text/plain'}); 
+        res.writeHead(200, {'content-type': 'text/plain'});
         res.end(util.inspect({fields: fields, files: files}));
       });
 

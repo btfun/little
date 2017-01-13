@@ -12,6 +12,7 @@
     "debug": "~2.2.0",
     "express": "~4.14.0",
     "formidable": "^1.0.17",
+    "ioredis": "^2.5.0",
     "morgan": "~1.7.0",
     "nodemailer": "^2.5.0",
     "request": "^2.79.0",

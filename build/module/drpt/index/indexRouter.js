@@ -1,0 +1,1 @@
+"use strict";define(function(require){return{path:"/",component:function(n){return require(["home.homeModule"],n)},children:[{path:"one",component:function(n){return require(["home.oneModule"],n)}},{path:"two",component:function(n){return require(["home.twoModule"],n)}}]}});

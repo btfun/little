@@ -1,0 +1,1 @@
+"use strict";define(function(require){return{createUUid:function(){return Math.random().toString(36).substr(2,20)}}});
