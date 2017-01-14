@@ -222,7 +222,7 @@ gulp.task('nodemon',function(){
     }).on('start',function(){
         browserSync.init({
             files: ['./views/**/*.*'],//, './public/**/*.*'
-            proxy:'http://localhost:3000', //设置代理运行本地的3000端口
+            proxy:'http://localhost:3030', //设置代理运行本地的3000端口
             port:8080, //设置browser-sync的运行端口号
             browser: 'chrome',
             notify: false

@@ -1,4 +1,5 @@
 此项目专为微信H5相关开发搭建
+
 base 存放自定义公共文件（css，js）
 libs 存放三方库文件（css，js）
 module 功能模块 ：

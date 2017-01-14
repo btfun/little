@@ -8,29 +8,32 @@ var dateV=new Date();
 
 var timeStamp= '?v='+dateV.getFullYear()+(dateV.getMonth()+1)+dateV.getDate()+dateV.getHours()+dateV.getMinutes();
 
-/* GET home page. */
+/*应用主页 */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'index' });
+
+  res.render('index',   {
+    version: timeStamp
+   });
 });
 
+/*示例页面 */
 router.get('/demo', function(req, res, next) {
   res.render('demo', { version: timeStamp });
 });
 
 /* index全局通用的 页面路由*/
-//示例： index?route=ldx&view=index
+//示例： index?route={ldx}&view={index}
 router.get('/index', function(req, res, next) {
 
   var destination=req.query.route.replace('-','/').replace('-','/'),
       view=req.query.view,
       routeModel='module/'+destination+'/'+view;
 
-    var name=req.params.name;
-    var url=req.protocol+'://'+req.hostname+req.originalUrl;
-
+    /*系统时间*/
     var timer=new Date();
     res.render(routeModel, {
        version: timeStamp,
+       root:  req.protocol+'://'+req.hostname+req.originalUrl,
        sysTime :  (timer.format("yyyy-MM-dd hh:mm:ss")),
        sysTime1 : (timer.format("yyyy/MM/dd hh:mm:ss"))
      });
