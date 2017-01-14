@@ -1,4 +1,5 @@
 dist/
 *.iml
 logs/
+build/
 node_modules/
