@@ -16,12 +16,11 @@
    globalUtil:  'javascripts/base/globalUtil',
    //////////////////主入口/////////////////////
    mainIndex:   'javascripts/manager/mainIndex',
-   mainElectron:'javascripts/manager/mainElectron',
    //////////////////组件入口1///////////////////
    home:{
      homeRouter: 'components/manager/home/homeRouter',
      homeModule: 'components/manager/home/homeModule',
-    //  homeTmpl:'components/manager/home/homeTmpl.html',
+     homeTmpl: 'components/manager/home/homeTmpl.html',
 
      module: 'components/manager/home/hStore/module',
      store:  'components/manager/home/hStore/store',
@@ -31,30 +30,6 @@
 
      oneModule: 'components/manager/home/children/one/oneModule',
      twoModule: 'components/manager/home/children/two/twoModule'
-   },
-
-   //////////////////组件入口2///////////////////
-   busi:{
-     busiRouter: 'components/manager/busi/busiRouter',
-     busiModule: 'components/manager/busi/busiModule',
-
-     module: 'components/manager/busi/bStore/module',
-     store: 'components/manager/busi/bStore/store',
-     getters: 'components/manager/busi/bStore/getters',
-     mutations: 'components/manager/busi/bStore/mutations',
-     actions: 'components/manager/busi/bStore/actions'
-   },
-
-   //////////////////组件入口3///////////////////
-   custom:{
-     customRouter: 'components/manager/custom/customRouter',
-     customModule: 'components/manager/custom/customModule',
-
-     module: 'components/manager/custom/cStore/module',
-     store: 'components/manager/custom/cStore/store',
-     getters: 'components/manager/custom/cStore/getters',
-     mutations: 'components/manager/custom/cStore/mutations',
-     actions: 'components/manager/custom/cStore/actions'
    }
 
  };
@@ -97,4 +72,4 @@
         }
       }
     }
-}); 
+});

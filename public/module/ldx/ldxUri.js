@@ -1,8 +1,5 @@
 (function(global,factory,GLOBAL){
-  'use strict'
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(GLOBAL,global) :
-  typeof define === 'function' && define.amd ? define(factory(GLOBAL,global)) :
-  (global.requestUrl = factory(GLOBAL,global));
+  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(GLOBAL,global) : typeof define === 'function' && define.amd ? define(factory(GLOBAL,global)) : (global.requestUrl = factory(GLOBAL,global));
 })(window,function(GLOBAL,global){
   'use strict'
 /**

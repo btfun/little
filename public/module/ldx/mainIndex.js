@@ -5,32 +5,14 @@
 define(function(require){
   'use strict'
 
-  var Vue = require('vue');
-  var Vuex = require('vuex');
-  var createLogger = require('logger');
+  var Vue = require('vue'); 
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
-  var mainElectron = require('mainElectron');//桌面方法库
- 
 
- Vue.use(Vuex);
+
  Vue.use(VueRouter);
  Vue.use(vueResource);
 
-
-
- /**
-  * 一: 应用全局状态树顶级模块入口
-  *    应用全局状态集合
-  **/
-const vuexStore= new Vuex.Store({
-     modules: {
-       home:   require('home.module'), //home 模块状态组件
-       custom: require('custom.module'),//custom 模块状态组件
-       busi:   require('busi.module')
-     },
-     plugins: [createLogger()]
- });
 
  /**
   * 二: 应用全局路由顶级模块入口

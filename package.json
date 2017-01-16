@@ -36,6 +36,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^3.0.0",
     "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.1.1",
     "gulp-jshint": "^2.0.3",
     "gulp-less": "^3.2.0",
@@ -54,7 +55,6 @@
     "gulp-webdriver": "^2.0.2",
     "jshint": "^2.9.4",
     "less-plugin-autoprefix": "^1.5.1",
-    "run-sequence": "^1.2.2",
-    "through2": "^2.0.3"
+    "minimist": "^1.2.0"
   }
 }
