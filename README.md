@@ -15,5 +15,8 @@ gulp clean
 # 默认开发模式构建 并且启动chrome浏览器
 gulp
 
+# 启动chrome浏览器 并且监控文件改动自动编译（开发模式）
+gulp server
+
 # 线上模式构建
 gulp --env online
