@@ -9,7 +9,7 @@
    vue:         'javascripts/lib/vue/vue',
    vueRouter:   'javascripts/lib/vue/vue-router/vue-router',
    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
-   vuex:        'javascripts/lib/vue/vuex/vuex',
+   vueLazyload: 'javascripts/lib/vue/vue-lazyload',
    //base
    globalUri:   'javascripts/base/globalUri',
    globalUtil:  'javascripts/base/globalUtil',
@@ -57,6 +57,7 @@
 
   win.requirejs.config({
     baseUrl: '/',
+    urlArgs: GLOBAL.version,//文件版本号
     paths: path
   });
   win.require(['text','mainIndex']);

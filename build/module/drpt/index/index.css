@@ -1,1 +1,10 @@
-.box{color:#ff32ac;border-color:#fdcdea}.box div,.box div666789{box-shadow:0 0 5px rgba(0,0,0,.3)}
+.box {
+  color: #ff32ac;
+  border-color: #fdcdea;
+}
+.box div {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.box div666789 {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}

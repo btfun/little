@@ -1,1 +1,22 @@
-"use strict";define(function(require){return{path:"/",component:function(n){return require(["home.homeModule"],n)},children:[{path:"one",component:function(n){return require(["home.oneModule"],n)}},{path:"two",component:function(n){return require(["home.twoModule"],n)}}]}});
+'use strict';
+
+define(function (require) {
+  'use strict';
+
+  return { path: '/',
+    component: function component(resolve) {
+      return require(['home.homeModule'], resolve);
+    },
+    children: [{
+      path: 'one',
+      component: function component(resolve) {
+        return require(['home.oneModule'], resolve);
+      }
+    }, {
+      path: 'two',
+      component: function component(resolve) {
+        return require(['home.twoModule'], resolve);
+      }
+    }]
+  };
+});

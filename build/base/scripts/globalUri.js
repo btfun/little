@@ -1,1 +1,23 @@
-"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e,o,t){"object"===("undefined"==typeof exports?"undefined":_typeof(exports))&&"undefined"!=typeof module?module.exports=o(t,e):"function"==typeof define&&define.amd?define(o(t,e)):e.requestUrl=o(t,e)}(window,function(e,o){if("object"!==("undefined"==typeof e?"undefined":_typeof(e)))return void alert("上下文异常!");e.confRoot||"http://xxxx/";return{login:{}}},GLOBAL);
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+(function (global, factory, GLOBAL) {
+  (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' && typeof module !== 'undefined' ? module.exports = factory(GLOBAL, global) : typeof define === 'function' && define.amd ? define(factory(GLOBAL, global)) : global.requestUrl = factory(GLOBAL, global);
+})(window, function (GLOBAL, global) {
+  'use strict';
+  /**
+   * 仅内部使用（用户登陆后）
+   */
+
+  if ((typeof GLOBAL === 'undefined' ? 'undefined' : _typeof(GLOBAL)) !== 'object') {
+    alert('上下文异常!');return;
+  }
+
+  var confRoot = GLOBAL.confRoot || 'http://xxxx/';
+
+  return {
+    login: {}
+
+  };
+}, GLOBAL);

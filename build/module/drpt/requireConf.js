@@ -1,1 +1,79 @@
-"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e,o,t){t(e(),o)}(function(){return{text:"javascripts/lib/requireJS/requireJS-text",vue:"javascripts/lib/vue/vue",vueRouter:"javascripts/lib/vue/vue-router/vue-router",vueResource:"javascripts/lib/vue/vue-resource/vue-resource",vuex:"javascripts/lib/vue/vuex/vuex",globalUri:"javascripts/base/globalUri",globalUtil:"javascripts/base/globalUtil",mainIndex:"javascripts/manager/mainIndex",home:{homeRouter:"components/manager/home/homeRouter",homeModule:"components/manager/home/homeModule",module:"components/manager/home/hStore/module",store:"components/manager/home/hStore/store",getters:"components/manager/home/hStore/getters",mutations:"components/manager/home/hStore/mutations",actions:"components/manager/home/hStore/actions",oneModule:"components/manager/home/children/one/oneModule",twoModule:"components/manager/home/children/two/twoModule"}}},window,function(e,o){var t={};for(var r in e)if("string"==typeof e[r])t[r]=e[r];else if("object"===_typeof(e[r]))for(var n in e[r])if("object"===_typeof(e[r][n])){for(var a in e[r][n])if(t[r+"."+n+"."+a]=e[r][n][a],"object"===_typeof(e[r][n][a]))return alert("警告require配置对象不能有三级对象属性")}else t[r+"."+n]=e[r][n];o.requirejs.config({baseUrl:"/",paths:t}),o.require(["text","mainIndex"]),o.logPath=function(e,o){if(123456===e)for(var r in t)o?r.indexOf(o)>-1&&console.log(r,":",t[r]):console.log(r,":",t[r])}});
+'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+(function (factory, win, fn) {
+  fn(factory(), win);
+})(function () {
+  'use strict';
+  //控制台输入 logPath('123456','searchKeys')查看对应的链接
+
+  return {
+    //////////////////lib//////////////////////
+    text: 'javascripts/lib/requireJS/requireJS-text',
+    vue: 'javascripts/lib/vue/vue',
+    vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
+    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
+    vueLazyload: 'javascripts/lib/vue/vue-lazyload',
+    //base
+    globalUri: 'javascripts/base/globalUri',
+    globalUtil: 'javascripts/base/globalUtil',
+    //////////////////主入口/////////////////////
+    mainIndex: 'javascripts/manager/mainIndex',
+    //////////////////组件入口1///////////////////
+    home: {
+      homeRouter: 'components/manager/home/homeRouter',
+      homeModule: 'components/manager/home/homeModule',
+      //  homeTmpl:'components/manager/home/homeTmpl.html',
+
+      module: 'components/manager/home/hStore/module',
+      store: 'components/manager/home/hStore/store',
+      getters: 'components/manager/home/hStore/getters',
+      mutations: 'components/manager/home/hStore/mutations',
+      actions: 'components/manager/home/hStore/actions',
+
+      oneModule: 'components/manager/home/children/one/oneModule',
+      twoModule: 'components/manager/home/children/two/twoModule'
+    }
+
+  };
+}, window, function (pathMods, win) {
+  'use strict';
+  //pathMods 层级对象抹平，最多支持三级对象属性
+
+  var path = {};
+  for (var attr in pathMods) {
+    if (typeof pathMods[attr] === 'string') {
+      path[attr] = pathMods[attr];
+    } else if (_typeof(pathMods[attr]) === 'object') {
+      for (var att in pathMods[attr]) {
+        if (_typeof(pathMods[attr][att]) === 'object') {
+          for (var at in pathMods[attr][att]) {
+            path[attr + '.' + att + '.' + at] = pathMods[attr][att][at];
+            if (_typeof(pathMods[attr][att][at]) === 'object') return alert('警告require配置对象不能有三级对象属性');
+          }
+        } else {
+          path[attr + '.' + att] = pathMods[attr][att];
+        }
+      }
+    }
+  }
+
+  win.requirejs.config({
+    baseUrl: '/',
+    urlArgs: GLOBAL.version, //文件版本号
+    paths: path
+  });
+  win.require(['text', 'mainIndex']);
+
+  win.logPath = function (pwd, conf) {
+    if (pwd !== 123456) return;
+    for (var ins in path) {
+      if (conf) {
+        if (ins.indexOf(conf) > -1) console.log(ins, ':', path[ins]);
+      } else {
+        console.log(ins, ':', path[ins]);
+      }
+    }
+  };
+});

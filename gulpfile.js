@@ -180,8 +180,8 @@ gulp.task('server',function(){
     });
     gulp.watch([paths.base.styles.src], ['minifybasecss']);
     gulp.watch([paths.base.scripts.src], ['minifybasejs']);
-
+    //
     gulp.watch([paths.module.cssSrc],  ['minifycss']);
     gulp.watch([paths.module.tmplSrc], ['minifyhtml']);
-    gulp.watch([paths.module.src], ['minifyjs']);
+    gulp.watch([paths.module.jsSrc], ['minifyjs']);
 })

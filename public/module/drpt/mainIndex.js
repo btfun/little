@@ -8,8 +8,10 @@ define(function(require){
   var Vue = require('vue');
   var VueRouter = require('vueRouter');
   var vueResource = require('vueResource');
+  var vueLazyload = require('vueLazyload');
 
 
+ Vue.use(vueLazyload);
  Vue.use(VueRouter);
  Vue.use(vueResource);
 
