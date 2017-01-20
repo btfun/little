@@ -55,6 +55,13 @@ var paths={
 
     cssSrc: 'public/module/**/**/*.{css,less}',
     cssDist:'build/module'
+  },
+  example:{
+    jsSrc: 'public/example/**/**/*.js',
+    jsDist:'build/example',
+
+    cssSrc: 'public/example/**/**/*.{css,less}',
+    cssDist:'build/example'
   }
 
 };
@@ -94,6 +101,17 @@ gulp.task('minifycss', function(cb){
     .pipe( gulp.dest(paths.module.cssDist) ) //输出文件夹
     .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
 });
+gulp.task('minifyexamplecss', function(cb){
+    return gulp.src(paths.example.cssSrc)
+    .pipe( debug({title: '编译css:'}))
+    .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+    .pipe( less())
+    // .pipe( sourcemaps.write())
+    .pipe( autoprefixer('last 2 versions', '> 1%', 'ie 8', 'Android >=4.0') )  //添加浏览器前缀
+    .pipe( gulpif(options.env === 'online',minifycss()) )//发布的时候才压缩
+    .pipe( gulp.dest(paths.example.cssDist) ) //输出文件夹
+    .pipe(reload({stream: true})); //编译后注入到浏览器里实现更新
+});
 // html模板
 gulp.task('minifyhtml', function(cb) {
   return gulp.src(paths.module.tmplSrc)
@@ -118,7 +136,21 @@ gulp.task('minifyjs', function(cb){
       .pipe( gulp.dest(paths.module.jsDist))  //输出
       .pipe(reload({stream: true})) ;
 });
-
+gulp.task('minifyexamplejs', function(cb){
+  return gulp.src(paths.example.jsSrc)
+      .pipe( changed(paths.example.jsDist))//通过改变的文件
+      .pipe( plumber({errorHandler: notify.onError('Error: <%= error.message %>')}))
+      .pipe( babel({presets: ['es2015','stage-3']})) //es6转es5
+      .pipe( jshint())//语法检查
+      // .pipe( jshint.reporter('default'))//默认错误提示(最严格)
+      .pipe( gulpif(options.env === 'online', uglify({
+           mangle: {except: ['require' ,'exports' ,'module' ,'$']}
+          }).on('error',function(e){
+           console.error('【minifyjs】错误信息:',e);
+         }) ))//发布的时候才压缩
+      .pipe( gulp.dest(paths.example.jsDist))  //输出
+      .pipe(reload({stream: true})) ;
+});
 //////////////////////////base模块压缩//////////////////////
 //css 编译压缩
 gulp.task('minifybasecss', function(cb){
@@ -154,7 +186,7 @@ gulp.task('clean', function(cb) {
 });
 ///////////////////////////////移动端开发(生产)(无需文件MD5)////////////////////////////////////////////////////
 gulp.task('default', ['copyjslib','copycsslib',
-                      'minifybasecss','minifybasejs',
+                      'minifybasecss','minifybasejs','minifyexamplejs','minifyexamplecss',
                       'minifycss','minifyjs','minifyhtml'], function() {
   // 将你的默认的任务代码放在这 'sass','minifyjs',
 
@@ -182,6 +214,10 @@ gulp.task('server',function(){
     gulp.watch([paths.base.scripts.src], ['minifybasejs']);
     //
     gulp.watch([paths.module.cssSrc],  ['minifycss']);
+    gulp.watch([paths.example.cssSrc],  ['minifyexamplecss']);
+
     gulp.watch([paths.module.tmplSrc], ['minifyhtml']);
+
     gulp.watch([paths.module.jsSrc], ['minifyjs']);
+    gulp.watch([paths.example.jsSrc], ['minifyexamplejs']);
 })

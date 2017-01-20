@@ -10,11 +10,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
   return {
     //////////////////lib//////////////////////
-    text: 'javascripts/lib/requireJS/requireJS-text',
-    vue: 'javascripts/lib/vue/vue',
-    vueRouter: 'javascripts/lib/vue/vue-router/vue-router',
-    vueResource: 'javascripts/lib/vue/vue-resource/vue-resource',
-    vueLazyload: 'javascripts/lib/vue/vue-lazyload',
+    text: 'javascripts/lib/scripts/requireJS/requireJS-text',
+    vue: 'javascripts/lib/scripts/vue/vue',
+    vueRouter: 'javascripts/lib/scripts/vue/vue-router/vue-router',
+    vueResource: 'javascripts/lib/scripts/vue/vue-resource/vue-resource',
+    vueLazyload: 'javascripts/lib/scripts/vue/vue-lazyload',
+    store: 'javascripts/lib/scripts/store.min',
     //base
     globalUri: 'javascripts/base/globalUri',
     globalUtil: 'javascripts/base/globalUtil',
@@ -24,16 +25,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     home: {
       homeRouter: 'components/manager/home/homeRouter',
       homeModule: 'components/manager/home/homeModule',
-      homeTmpl: 'components/manager/home/homeTmpl.html',
+      homeTmpl: 'components/manager/home/homeTmpl.html'
 
-      module: 'components/manager/home/hStore/module',
-      store: 'components/manager/home/hStore/store',
-      getters: 'components/manager/home/hStore/getters',
-      mutations: 'components/manager/home/hStore/mutations',
-      actions: 'components/manager/home/hStore/actions',
-
-      oneModule: 'components/manager/home/children/one/oneModule',
-      twoModule: 'components/manager/home/children/two/twoModule'
     }
 
   };
