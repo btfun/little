@@ -68,10 +68,13 @@ class Point {
     Object.assign(this, {x, y});
   }
 }
+let SomeClass=()=>{
+
+};
 //为对象添加方法
 Object.assign(SomeClass.prototype, {
   someMethod(arg1, arg2) {
-   
+
   },
   anotherMethod() {
 
@@ -85,3 +88,5 @@ SomeClass.prototype.someMethod = function (arg1, arg2) {
 SomeClass.prototype.anotherMethod = function () {
 
 };
+
+ 

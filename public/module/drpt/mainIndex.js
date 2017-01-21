@@ -10,6 +10,7 @@ define(function(require){
   var vueResource = require('vueResource');
   var vueLazyload = require('vueLazyload');
 
+Vue.config.devtools = true
 
  Vue.use(vueLazyload);
  Vue.use(VueRouter);
