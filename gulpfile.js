@@ -197,7 +197,7 @@ gulp.task('default', ['copyjslib','copycsslib',
 gulp.task('server',function(){
   var started = false;
     nodemon({
-        ignore:['gulpfile.js','node_modules/'], //忽略不需要监视重启的文件
+        ignore:['gulpfile.js','node_modules/','public/**/*.*'], //忽略不需要监视重启的文件
         script: './bin/www'
     }).on('start',function(){
       if (!started) {
